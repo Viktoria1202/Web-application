@@ -1,0 +1,56 @@
+
+/* Обновленный стиль: */
+
+/* Общие стили */
+body {
+  font-family: cursive, Arial, sans-serif;
+  background-color: #fbe3e8;
+}
+
+/* Заголовок */
+h1 {
+  text-align: center;
+}
+
+/* Форма добавления */
+form {
+  margin-bottom: 20px;
+}
+
+/* Поле ввода */
+input[type="text"] {
+  width: 200px;
+  padding: 5px;
+}
+
+/* Кнопка добавления */
+button[type="submit"] {
+  font-family: cursive, Arial, sans-serif;
+  padding: 5px 10px;
+  background-color: #FDFEFE;
+  margin-left: 10px;
+  font-size: 13px;
+  color: #4faab3;
+}
+
+/* Кнопка удаления */
+button.delete {
+  font-family: cursive, Arial, sans-serif;
+  padding: 10px 10px;
+  background-color: #4faab3;
+  margin-left: 10px;
+  font-size: 13px;
+  color: #ff4444;
+}
+
+/* Список покупок */
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+/* Элементы списка */
+li {
+  margin-bottom: 5px;
+}
+

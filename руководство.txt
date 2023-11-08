@@ -1,0 +1,134 @@
+Добавить функционал сохранения списка покупок для каждого пользователя. Для этого можно воспользоваться локальным хранилищем браузера, таким как localStorage или sessionStorage. В данном случае использовать будем localStorage. При добавлении или удалении продуктов, будем сохранять их состояние в localStorage.
+
+Измененный код для файла index.html:
+html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Список покупок</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>Список покупок</h1>
+
+  <form id="addForm">
+    <input type="text" id="productName" placeholder="Название продукта">
+    <button type="submit">Добавить</button>
+  </form>
+
+  <ul id="shoppingList"></ul>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+Измененный код для файла script.js:
+javascript
+// Получаем элементы страницы
+const addForm = document.getElementById('addForm');
+const productNameInput = document.getElementById('productName');
+const shoppingList = document.getElementById('shoppingList');
+
+// Функция для добавления продукта в список
+function addProduct(event) {
+  event.preventDefault(); // Отменяем стандартное поведение формы
+
+  const productName = productNameInput.value;
+
+  if (productName) {
+    const listItem = document.createElement('li');
+    listItem.textContent = productName;
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Удалить';
+    deleteButton.addEventListener('click', deleteProduct);
+
+    listItem.appendChild(deleteButton);
+    shoppingList.appendChild(listItem);
+
+    productNameInput.value = ''; // Очищаем поле ввода
+
+    updateLocalStorage(); // Обновляем состояние в localStorage
+  }
+}
+
+// Функция для удаления продукта из списка
+function deleteProduct(event) {
+  const listItem = event.target.parentElement;
+  shoppingList.removeChild(listItem);
+
+  updateLocalStorage(); // Обновляем состояние в localStorage
+}
+
+// Функция для обновления состояния списка покупок в localStorage
+function updateLocalStorage() {
+  const shoppingItems = Array.from(shoppingList.children).map(item => item.textContent);
+  localStorage.setItem('shoppingItems', JSON.stringify(shoppingItems));
+}
+
+// Функция для загрузки состояния списка покупок из localStorage
+function loadLocalStorage() {
+  const shoppingItems = JSON.parse(localStorage.getItem('shoppingItems'));
+
+  if (shoppingItems && shoppingItems.length) {
+    shoppingItems.forEach(item => {
+      const listItem = document.createElement('li');
+      listItem.textContent = item;
+
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Удалить';
+      deleteButton.addEventListener('click', deleteProduct);
+
+      listItem.appendChild(deleteButton);
+      shoppingList.appendChild(listItem);
+    });
+  }
+}
+
+// Обработчик события отправки формы
+addForm.addEventListener('submit', addProduct);
+
+// Загружаем состояние списка покупок при загрузке страницы
+window.addEventListener('load', loadLocalStorage);
+
+
+Данный код добавляет функции updateLocalStorage() и loadLocalStorage(), которые сохраняют и загружают состояние списка покупок в localStorage соответственно. Таким образом, при добавлении или удалении продуктов, список будет обновляться как в браузере, так и в localStorage.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Чтобы несколько пользователей могли использовать приложение через браузер Microsoft Edge, Вам необходимо развернуть его на веб-сервере. Вот несколько шагов, которые Вам нужно выполнить:
+
+1. Установите веб-сервер, например, Apache или Nginx, на Вашей машине или на удаленном сервере.
+
+2. Поместите все файлы Вашего приложения (HTML, CSS, JavaScript) в папку, доступную для веб-сервера.
+
+3. Запустите веб-сервер и убедитесь, что Ваше приложение доступно через URL-адрес, например, http://localhost:8080.
+
+4. Поделитесь этим URL-адресом с другими пользователями, чтобы они могли открыть приложение в своем браузере Microsoft Edge.
+
+5. Каждый пользователь будет иметь доступ к одной и той же странице приложения, и изменения, внесенные одним пользователем, будут отображаться автоматически для всех остальных пользователей.
+
+6. Приложение будет сохранять состояние списка покупок в localStorage браузера, поэтому изменения будут сохраняться даже после перезагрузки страницы или закрытия браузера.
+
+Теперь пользователи смогут одновременно работать с вашим приложением через браузер Microsoft Edge, видеть изменения, вносимые другими пользователями, и иметь возможность добавлять, удалять и обновлять список покупок.
